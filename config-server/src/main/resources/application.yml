@@ -1,0 +1,37 @@
+server:
+  port: 3344
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          default-label: main
+          uri: git@github.com:ShunyiChen/autoparts-config-repo.git
+          search-paths:
+            - autoparts-config-repo
+      label: main
+  rabbitmq:
+    host: localhost
+    port: 5672
+    user: guest
+    password: guest
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: config-server3344
+    prefer-ip-address: true
+    lease-renewal-interval-in-seconds: 1
+    lease-expiration-duration-in-seconds: 2
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'bus-refresh'
+
