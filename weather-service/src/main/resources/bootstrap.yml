@@ -1,0 +1,31 @@
+server:
+  port: 33472
+spring:
+  cloud:
+    config:
+      label: main
+      name: config
+      profile: dev
+      uri: http://localhost:3344
+      username: user
+      password: 92d7feb0-41fd-47c6-aab2-fcb5ca4ba0b7
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    instance-id: payment33472
+    prefer-ip-address: true
+# 暴露监控端点
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

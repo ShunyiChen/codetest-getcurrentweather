@@ -33,9 +33,12 @@
     <modules>
         <module>eureka-server1</module>
         <module>eureka-server2</module>
-        <module>gateway</module>
-        <module>common</module>
+        <module>gateway1</module>
+        <module>gateway2</module>
         <module>config-server</module>
+        <module>city-service</module>
+        <module>weather-service</module>
+        <module>common</module>
     </modules>
 
     <properties>

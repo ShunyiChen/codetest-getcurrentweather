@@ -1,0 +1,13 @@
+spring:
+  application:
+    name: payment-app
+  datasource:
+    druid:
+      db-type: com.alibaba.druid.pool.DruidDataSource
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      url: jdbc:mysql://db4free.net:3306/e412937e9d1e?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      username: e385d8289a17e
+      password: cDe3@wsx
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.shunyi.autoparts.entities
