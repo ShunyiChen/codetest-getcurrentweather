@@ -1,3 +1,7 @@
+docker run -d --name jenkins -p 8040:8080 -p 50000:50000 -v /usr/shunyi/jenkins:/var/jenkins_home jenkins/jenkins:2.222.3-centos
+docker run --name weather-mysql -e MYSQL_ROOT_PASSWORD=cDe3@wsx -d mysql:latest
+
+
 # codetest-getcurrentweather
 
 [![Gitter chat](http://img.shields.io/badge/gitter-join%20chat%20%E2%86%92-brightgreen.svg)](https://gitter.im/openzipkin/zipkin)
