@@ -1,5 +1,6 @@
-package com.shunyi.codetest.common.entity;
+package com.shunyi.codetest.city.entity;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +14,7 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@TableName(value = "wcity")
 public class City implements Serializable {
     private Long id;
     private String name;

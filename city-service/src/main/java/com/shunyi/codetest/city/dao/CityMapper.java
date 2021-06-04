@@ -1,7 +1,7 @@
 package com.shunyi.codetest.city.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.shunyi.codetest.common.entity.City;
+import com.shunyi.codetest.city.entity.City;
 
 /**
  * @author Shunyi Chen

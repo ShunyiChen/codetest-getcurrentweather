@@ -1,5 +1,8 @@
-docker run -d --name jenkins -p 8040:8080 -p 50000:50000 -v /usr/shunyi/jenkins:/var/jenkins_home jenkins/jenkins:2.222.3-centos
-docker run --name weather-mysql -e MYSQL_ROOT_PASSWORD=cDe3@wsx -d mysql:latest
+tasks:
+
+1. Transfer All Chinese words to English
+2. Dockerfile
+3. CICD
 
 
 # codetest-getcurrentweather
@@ -211,3 +214,49 @@ Container Registry as `ghcr.io/openzipkin/zipkin`. See [docker](./docker) for de
 ### Javadocs
 https://zipkin.io/zipkin contains versioned folders with JavaDocs published on each (non-PR) build, as well
 as releases.
+
+三方软件安装：
+安装MYSQL:
+vim /usr/shunyi/mysql/conf/my.cnf
+```angular2html
+[client]
+default-character-set=utf8mb4
+ 
+[mysql]
+default-character-set=utf8mb4
+ 
+[mysqld]
+pid-file        = /var/run/mysqld/mysqld.pid
+socket          = /var/run/mysqld/mysqld.sock
+datadir         = /var/lib/mysql
+secure-file-priv= NULL
+# Disabling symbolic-links is recommended to prevent assorted security risks
+symbolic-links=0
+max_connections=10000
+default-time_zone='+8:00'
+character-set-client-handshake=FALSE
+character_set_server=utf8mb4
+collation-server=utf8mb4_unicode_ci
+init_connect='SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci'
+# Custom config should go here
+!includedir /etc/mysql/conf.d/
+```
+
+docker run -p 3306:3306 --name weather-mysql -e MYSQL_ROOT_PASSWORD=cDe3@wsx \
+-v /usr/shunyi/mysql/conf/my.cnf:/etc/mysql/my.cnf \
+-v /usr/shunyi/mysql/logs:/var/log/mysql \
+-v /usr/shunyi/mysql/data:/var/lib/mysql \
+-d mysql --lower_case_table_names=1
+
+docker exec -it weather-mysql bash
+
+安装REDIS:
+从github下载最新redis.conf
+docker run -p 6379:6379 --name weather-redis -v /home/redis/conf/redis.conf:/redis.conf -v /home/redis/data:/data -d redis:latest redis-server
+
+docker exec -it weather-redis redis-cli
+
+
+
+
+

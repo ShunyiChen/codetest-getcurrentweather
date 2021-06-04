@@ -1,6 +1,5 @@
-package com.shunyi.codetest.common;
+package com.shunyi.codetest.city.util;
 
-import com.shunyi.codetest.common.util.RedisUtil;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.connection.RedisConnection;
 import org.springframework.data.redis.core.RedisTemplate;

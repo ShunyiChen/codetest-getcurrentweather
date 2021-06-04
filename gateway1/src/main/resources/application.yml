@@ -7,30 +7,25 @@ spring:
         locator:
           enabled: true #开启从注册中心动态创建路由功能，利用微服务名去路由
       routes: # /// 路由的第一种配置
-        - id: payment_hystrix_routh
-          #          uri: http://localhost:33475
-          uri: lb://payment-app  #根据微服务名动态路由
-          filters:
-            - AddRequestParameter=X-Request-Id,1024
+        - id: city-service
+          uri: lb://city-service
           predicates:
-            - Path=/payment/get/**
-            - After=2020-12-25T09:33:55.415+08:00[Asia/Shanghai]
-            - Cookie=username,123  #请求需要带键username，值为simeon cookie
-            - Header=X-Request-Id, \d+ #请求头要有X-Request-Id属性，并且值为整数的正则表达试
-            - Method=GET
-            - Query=username, \d+ # 要有参数名username并且值还要是整数才能路由
-    #        - id: payment_hystrix_routh2
-    ##          uri: http://localhost:33475
-    #          uri: lb://payment-app
-    #          predicates:
-    #            - Path=/payment/get/**
-    config:
-      label: main
-      name: config
-      profile: dev
-      uri: http://localhost:3344
-      username: user
-      password: 92d7feb0-41fd-47c6-aab2-fcb5ca4ba0b7
+            - Path=/city-service/**
+          filters:
+            - StripPrefix=1
+        - id: weather-service
+          uri: lb://weather-service
+          predicates:
+            - Path=/weather-service/**
+          filters:
+            - StripPrefix=1
+#    config:
+#      label: main
+#      name: config
+#      profile: dev
+#      uri: http://localhost:3344
+#      username: user
+#      password: 92d7feb0-41fd-47c6-aab2-fcb5ca4ba0b7
 eureka:
   client:
     serviceUrl:
@@ -38,7 +33,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
   instance:
-    instance-id: payment3347
+    instance-id: gateway1-9527
     prefer-ip-address: true
 # 暴露监控端点
 management:
