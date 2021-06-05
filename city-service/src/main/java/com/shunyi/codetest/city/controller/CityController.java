@@ -20,6 +20,7 @@ import java.util.List;
 @Api(tags = "城市管理")
 @RestController
 @Slf4j
+@CrossOrigin(maxAge = 3600)
 public class CityController {
 //    @Value("${server.port}")
 //    private String serverPort;
