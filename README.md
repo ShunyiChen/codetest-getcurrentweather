@@ -258,5 +258,18 @@ docker exec -it weather-redis redis-cli
 
 
 
+安装Jenkins:
 
+```sh
+docker pull jenkins/jenkins
+```
 
+```sh
+docker run -d -p 10240:8080 -p 10241:50000 -v /usr/shunyi/jenkins:/var/jenkins_home -v /etc/localtime:/etc/localtime --name weather-jenkins jenkins/jenkins
+```
+
+参考https://www.cnblogs.com/fuzongle/p/12834080.html
+
+//访问控制台
+
+http://8.142.15.127:10240/

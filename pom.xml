@@ -76,7 +76,7 @@
     </dependencyManagement>
 
     <build>
-        <finalName>getcurrentweather-build</finalName>
+<!--        <finalName>getcurrentweather-build</finalName>-->
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
