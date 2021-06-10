@@ -2,6 +2,8 @@
 172.19.249.254
 
 
+
+
 tasks:
 
 1. Transfer All Chinese words to English
@@ -219,6 +221,19 @@ Container Registry as `ghcr.io/openzipkin/zipkin`. See [docker](./docker) for de
 https://zipkin.io/zipkin contains versioned folders with JavaDocs published on each (non-PR) build, as well
 as releases.
 
+
+//查询端口
+netstat  -nlp|grep 8089     //8089是系统启动访问的端口， 由此可得到9578 是java运行的端口，
+
+
+
+
+
+
+
+
+
+
 三方软件安装：
 安装MYSQL:
 vim /usr/shunyi/mysql/conf/my.cnf
@@ -320,3 +335,33 @@ docker run --name weather-nginx2 -d -p 8889:80 -v /usr/shunyi/nginx/pets:/usr/sh
 
 
 ```
+
+构建镜像
+cd /usr/shunyi/dockerfiles/eureka-server1
+docker build -t eureka-server .
+ 
+
+docker run -d -p 7001:7001 --name weather-eureka-server1 --add-host eureka7001.com:127.0.0.1 --network=host eureka-server1
+docker run -d -p 7002:7002 --name weather-eureka-server2 --add-host eureka7002.com:127.0.0.1 --network=host eureka-server2
+docker run -d -p 33472:33472 --name weather-city-service city-service
+docker run -d -p 33473:33473 --name weather-weather-service weather-service
+docker run -d -p 9527:9527 --name weather-gateway-service1 gateway-service
+
+docker run -d -p 7001:7001 --name weather-eureka-server1 --add-host eureka7001.com:172.19.249.254 eureka-server1
+
+
+查看日志
+docker logs --tail=9999 weather-eureka-server1
+docker logs --tail=9999 weather-eureka-server2
+
+
+
+
+8.142.15.127
+172.19.249.254
+
+
+
+
+
+
