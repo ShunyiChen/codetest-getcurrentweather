@@ -1,3 +1,7 @@
+8.142.15.127
+172.19.249.254
+
+
 tasks:
 
 1. Transfer All Chinese words to English
@@ -273,3 +277,41 @@ docker run -d -p 10240:8080 -p 10241:50000 -v /usr/shunyi/jenkins:/var/jenkins_h
 //访问控制台
 
 http://8.142.15.127:10240/
+
+
+
+安装harbor
+
+下载工具[harbor-offline-installer-v2.2.2.tgz](https://github.com/goharbor/harbor/releases/download/v2.2.2/harbor-offline-installer-v2.2.2.tgz)
+
+解压tar xf harbor-offline-installer-v2.2.2.tgz
+
+cd harbor
+
+cp harbor.yml.impl harbor.yml
+
+vim harbor.yml
+
+change hostname to 内外IP
+
+打开网页访问
+
+http://8.142.15.127/harbor/projects/2/repositories
+
+admin/Harbor12345
+
+参考https://www.bilibili.com/video/BV1Vv411C7gn?p=33
+
+
+
+安装Nginx
+```angular2html
+docker logs -f weather-nginx 1>/dev/null
+docker logs -f weather-nginx 2>/dev/null
+
+docker cp weather-nginx:/var/log/nginx/* /usr/shunyi/nginx/
+docker cp nginx:/etc/nginx/nginx.conf /usr/shunyi/nginx/conf/nginx.conf
+
+docker run --name weather-nginx -d -p 8888:80 -v /usr/shunyi/nginx/html:/usr/share/nginx/html -v /usr/shunyi/nginx/conf/nginx.conf:/etc/nginx/nginx.conf  -v /usr/shunyi/nginx/logs:/var/log/nginx -d nginx:latest
+
+```
