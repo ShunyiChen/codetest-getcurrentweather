@@ -15,19 +15,16 @@ gateway2: Microservice gateway2
 ```
 
 Architecture:
+![image-20210611071026875](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Architecture.png)
 
-![image-20210611071026875](C:\Users\ESEHHUC\AppData\Roaming\Typora\typora-user-images\image-20210611071026875.png)
-
-
-
- Docker containers:
-
-![image-20210611071753017](C:\Users\ESEHHUC\AppData\Roaming\Typora\typora-user-images\image-20210611071753017.png)
+Docker containers:
+![image-20210611071753017](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/DockerContainers.PNG)
 
 CICD:
+![image-20210611073439823](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Jenkins.PNG)
 
-![image-20210611073439823](C:\Users\ESEHHUC\AppData\Roaming\Typora\typora-user-images\image-20210611073439823.png)
-
+Swagger:
+![image-20210611073439824](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Swagger.PNG)
 
 
 Pages:
