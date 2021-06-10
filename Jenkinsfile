@@ -7,14 +7,26 @@ node {
     }
 
     stage('build'){
-     echo 'build';
+     echo 'build starts';
+     env.JAVA_HOME="${tool 'jdk1.8.0_251'}"
+        withMaven(
+         maven: 'M3',
+         mavenLocalRepo: '.repository') {
+             sh "mvn clean install -U  -P${profile} -Dmaven.test.skip=true"
+     }
+     echo 'build completed';
     }
     
     stage('test'){
-     echo 'test';
+     echo 'test skipped';
     }
     
     stage('deploy'){
-     echo 'deploy';
+     echo 'deploy starts';
+      sshagent(credentials: ['deploy_ssh_key']) {
+         sh 'sh deploy.sh'//待续。。。
+      }
+      echo 'deploy completed';
     }
+
 }
