@@ -314,4 +314,9 @@ docker cp nginx:/etc/nginx/nginx.conf /usr/shunyi/nginx/conf/nginx.conf
 
 docker run --name weather-nginx -d -p 8888:80 -v /usr/shunyi/nginx/html:/usr/share/nginx/html -v /usr/shunyi/nginx/conf/nginx.conf:/etc/nginx/nginx.conf  -v /usr/shunyi/nginx/logs:/var/log/nginx -d nginx:latest
 
+For pets:
+
+docker run --name weather-nginx2 -d -p 8889:80 -v /usr/shunyi/nginx/pets:/usr/share/nginx/html -d nginx:latest
+
+
 ```
