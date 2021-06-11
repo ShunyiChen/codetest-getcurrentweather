@@ -26,6 +26,9 @@ CICD:
 Swagger:
 ![image-20210611073439824](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Swagger.PNG)
 
+Demo:
+
+![image-20210611073439825](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Demo.PNG)
 
 Pages:
 
@@ -33,7 +36,7 @@ Pages:
 Weather : http://8.142.15.127:8888/
 Jenkins: http://8.142.15.127:10240/
 Swagger: http://8.142.15.127:9527/swagger-ui/index.html
-
+Eureka:http://8.142.15.127:7001/ and http://8.142.15.127:7002/
 ```
 
 
