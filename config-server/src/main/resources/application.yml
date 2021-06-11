@@ -1,8 +1,6 @@
 server:
   port: 3344
 spring:
-  application:
-    name: config-server
   cloud:
     config:
       server:
@@ -21,11 +19,12 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      defaultZone: http://172.19.249.254:7001/eureka,http://172.19.249.254:7002/eureka
     register-with-eureka: true
     fetch-registry: true
   instance:
-    instance-id: config-server3344
+    instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
     lease-renewal-interval-in-seconds: 1
     lease-expiration-duration-in-seconds: 2

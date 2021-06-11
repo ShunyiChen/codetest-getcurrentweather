@@ -141,6 +141,8 @@ admin/Harbor12345
 
 
 安装Nginx
+
+
 ```angular2html
 docker logs -f weather-nginx 1>/dev/null
 docker logs -f weather-nginx 2>/dev/null
@@ -156,6 +158,130 @@ docker run --name weather-nginx2 -d -p 8889:80 -v /usr/shunyi/nginx/pets:/usr/sh
 
 
 ```
+
+nginx.conf:
+
+```sh
+user  nginx;
+worker_processes  auto;
+
+error_log  /var/log/nginx/error.log notice;
+pid        /var/run/nginx.pid;
+
+
+events {
+worker_connections  1024;
+}
+
+
+http {
+include       /etc/nginx/mime.types;
+default_type  application/octet-stream;
+
+log_format  main  '$remote_addr - $remote_user [$time_local] "$request" '
+'$status $body_bytes_sent "$http_referer" '
+'"$http_user_agent" "$http_x_forwarded_for"';
+
+access_log  /var/log/nginx/access.log  main;
+
+sendfile        on;
+#tcp_nopush     on;
+
+keepalive_timeout  65;
+
+#gzip  on;
+
+upstream mydata {
+server 172.19.249.254:9527;
+}
+
+
+server {
+listen       80;
+server_name  8.142.15.127;
+
+#charset koi8-r;
+
+#access_log  logs/host.access.log  main;
+
+root /usr/share/nginx/html;
+location = / {
+#root /usr/share/nginx/html;
+index index.html;
+}
+#静态文件交给nginx处理
+location ~ .*\.(htm|html|gif|jpg|jpeg|png|bmp|swf|ioc|rar|zip|txt|flv|mid|doc|ppt|pdf|xls|mp3|wma)$
+{
+expires 30d;
+}
+location ~ .*\.(js|css)?$
+{
+expires 1h;
+}
+
+location / {
+proxy_set_header   X-Real-IP        $remote_addr;
+# 请求头中Host信息
+proxy_set_header   Host             $host;
+# 代理路由信息
+proxy_set_header   X-Forwarded-For  $proxy_add_x_forwarded_for;
+# 真实的用户访问协议
+proxy_set_header   X-Forwarded-Proto $scheme;
+proxy_pass  http://mydata/;
+}
+
+
+#location / {
+# root /usr/share/nginx/html;
+# index  index.html index.htm;
+
+# proxy_pass http://mydata/;
+# proxy_redirect default;
+
+# }
+
+#error_page  404              /404.html;
+
+# redirect server error pages to the static page /50x.html
+#
+error_page   500 502 503 504  /50x.html;
+location = /50x.html {
+root   html;
+}
+
+# proxy the PHP scripts to Apache listening on 127.0.0.1:80
+#
+#location ~ \.php$ {
+#    proxy_pass   http://127.0.0.1;
+#}
+
+# pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
+#
+#location ~ \.php$ {
+#    root           html;
+#    fastcgi_pass   127.0.0.1:9000;
+#    fastcgi_index  index.php;
+#    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
+#    include        fastcgi_params;
+#}
+
+# deny access to .htaccess files, if Apache's document root
+# concurs with nginx's one
+#
+#location ~ /\.ht {
+#    deny  all;
+#}
+}
+
+include /etc/nginx/conf.d/*.conf;
+}
+```
+
+
+
+
+
+
 
 构建镜像
 
@@ -174,6 +300,7 @@ docker run -d -p 7001:7001 --name weather-eureka-server1 --add-host eureka7001.c
 查看日志
 docker logs --tail=9999 weather-eureka-server1
 docker logs --tail=9999 weather-eureka-server2
+docker logs --tail=9999 weather-weather-service
 ```
 
 

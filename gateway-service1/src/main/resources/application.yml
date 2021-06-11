@@ -1,17 +1,24 @@
 server:
-  port: 33472
+  port: 9527
 spring:
-  redis:
-    host: 8.142.15.127
-    port: 6379
-  datasource:
-    druid:
-      db-type: com.alibaba.druid.pool.DruidDataSource
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://8.142.15.127:3306/weather?useUnicode=true&characterEncoding=utf-8&useSSL=false
-      username: root
-      password: cDe3@wsx
-#  cloud:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true #开启从注册中心动态创建路由功能，利用微服务名去路由
+      routes: # /// 路由的第一种配置
+        - id: city-service
+          uri: lb://CITY-SERVICE
+          predicates:
+            - Path=/city-service/**
+          filters:
+            - StripPrefix=1
+        - id: weather-service
+          uri: lb://WEATHER-SERVICE
+          predicates:
+            - Path=/weather-service/**
+          filters:
+            - StripPrefix=1
 #    config:
 #      label: main
 #      name: config
@@ -19,16 +26,10 @@ spring:
 #      uri: http://localhost:3344
 #      username: user
 #      password: 92d7feb0-41fd-47c6-aab2-fcb5ca4ba0b7
-#  rabbitmq:
-#    host: localhost
-#    port: 5672
-#    username: guest
-#    password: guest
 eureka:
   client:
     serviceUrl:
       defaultZone: http://172.19.249.254:7001/eureka,http://172.19.249.254:7002/eureka
-#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
     register-with-eureka: true
     fetch-registry: true
   instance:

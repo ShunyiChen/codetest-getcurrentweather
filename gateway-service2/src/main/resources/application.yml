@@ -1,5 +1,5 @@
 server:
-  port: 9527
+  port: 9528
 spring:
   cloud:
     gateway:
@@ -33,7 +33,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
   instance:
-    instance-id: gateway1-9527
+    instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
 # 暴露监控端点
 management:

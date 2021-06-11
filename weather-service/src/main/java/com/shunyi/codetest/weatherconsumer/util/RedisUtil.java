@@ -101,6 +101,7 @@ public final class RedisUtil {
     }
 
     /**
+     * Set key to hold the string value and expiration timeout if key is absent.
      *
      * @param key
      * @param value

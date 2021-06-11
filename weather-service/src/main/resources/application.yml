@@ -33,7 +33,7 @@ eureka:
     register-with-eureka: true
     fetch-registry: true
   instance:
-    instance-id: weather-service-33473
+    instance-id: ${spring.application.name}:${server.port}
     prefer-ip-address: true
 # 暴露监控端点
 management:

@@ -7,7 +7,6 @@ import com.shunyi.codetest.common.vo.WeatherForecast;
 import com.shunyi.codetest.weatherconsumer.config.SysYmlConfig;
 import com.shunyi.codetest.weatherconsumer.service.WeatherService;
 import com.shunyi.codetest.weatherconsumer.util.RedisUtil;
-import com.shunyi.codetest.weatherconsumer.vo.City;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author Shunyi Chen
  * @create 2021-06-02 15:54
@@ -33,24 +29,24 @@ import java.util.List;
 @Slf4j
 @CrossOrigin(maxAge = 3600)
 public class WeatherController {
-
-//    @Value("${server.appId}")
-//    private String appId = "6dcf808417595d99f60886e2f1279efe";
     @Autowired
     private SysYmlConfig sysYmlConfig;
-
-
-    private final RedisUtil redisUtil;
+    @Autowired
+    private WeatherService weatherService;
     @Qualifier("redisTemplate")
     private final RedisTemplate redisTemplate;
+    private final RedisUtil redisUtil;
 
+    /**
+     * Constructor
+     *
+     * @param redisTemplate
+     * @param redisUtil
+     */
     public WeatherController(RedisTemplate redisTemplate, RedisUtil redisUtil) {
         this.redisTemplate = redisTemplate;
         this.redisUtil = redisUtil;
     }
-
-    @Autowired
-    private WeatherService weatherService;
 
     @ApiOperation("Find a city by Name")
     @ApiImplicitParam(name = "name", value = "City Name", required = true)
@@ -62,13 +58,14 @@ public class WeatherController {
         }
         WeatherForecast weatherForecast = null;
         try {
-            //First to find redis
+            //Read from redis first,if the value does not exist, call remote API
             Object obj = redisUtil.get(cityName);
             if(obj != null) {
                 weatherForecast = JSON.parseObject(obj.toString(), new TypeReference<WeatherForecast>() {});
+                log.info("********Got data from redis!");
             } else {
-                //If redis does not exist this value, call remote API
                 weatherForecast = weatherService.getCurrentWeatherData(cityName, sysYmlConfig.getAppId());
+                log.info("********Got data from extern API!");
             }
             if(weatherForecast == null) {
                 log.warn("********OpenWeather calling failed."+"(appId("+sysYmlConfig.getAppId()+")");
@@ -78,7 +75,7 @@ public class WeatherController {
             }
         } catch (Exception e) {
             log.error("********OpenWeather calling failed and throw an exception."+"appId:"+sysYmlConfig.getAppId()+",exception:"+e);
-            return CommonResult.builder().code(500).message("OpenWeather catch an exception:"+e.getMessage()).data(weatherForecast).build();
+            return CommonResult.builder().code(500).message("OpenWeather caught an exception: \n"+e).data(weatherForecast).build();
         }
     }
 }
