@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.scheduling.annotation.EnableScheduling;
 
 /**
  * @author Shunyi Chen
@@ -14,6 +15,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableEurekaClient
 @EnableFeignClients
 @EnableCircuitBreaker
+@EnableScheduling
 public class WeatherApp {
 
     public static void main(String[] args) {
