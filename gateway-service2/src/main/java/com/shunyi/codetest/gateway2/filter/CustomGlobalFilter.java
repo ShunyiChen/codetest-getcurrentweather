@@ -23,13 +23,13 @@ public class CustomGlobalFilter implements GlobalFilter, Ordered{
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        log.info("**************come in CustomGlobalFilter: "+new Date());
-        String uname = exchange.getRequest().getQueryParams().getFirst("uname");
-        if(StringUtils.isEmpty(uname)) {
-            log.info("********用户名为null,非法用户");
-            exchange.getResponse().setStatusCode(HttpStatus.NOT_ACCEPTABLE);
-            return exchange.getResponse().setComplete();
-        }
+//        log.info("**************come in CustomGlobalFilter: "+new Date());
+//        String uname = exchange.getRequest().getQueryParams().getFirst("uname");
+//        if(StringUtils.isEmpty(uname)) {
+//            log.info("********用户名为null,非法用户");
+//            exchange.getResponse().setStatusCode(HttpStatus.NOT_ACCEPTABLE);
+//            return exchange.getResponse().setComplete();
+//        }
         return chain.filter(exchange);
     }
 
