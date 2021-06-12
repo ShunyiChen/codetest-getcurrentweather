@@ -15,25 +15,29 @@ gateway2: Microservice gateway2
 ```
 
 Architecture:
-![image-20210611071026875](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Architecture.png)
+![image-20210611071026875](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/docs/Architecture.png)
 
 Docker containers:
-![image-20210611071753017](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/DockerContainers.PNG)
+![image-20210611071753017](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/docs/DockerContainers.png)
 
 CICD:
-![image-20210611073439823](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Jenkins.PNG)
+![image-20210611073439823](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/docs/Jenkins.png)
+
+Eureka:
+![image-20210611073439822](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/docs/Eureka.png)
 
 Swagger:
-![image-20210611073439824](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Swagger.PNG)
+![image-20210611073439824](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/docs/Swagger.png)
 
 Demo:
 
-![image-20210611073439825](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/Demo.PNG)
+![image-20210611073439825](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/docs/Demo.png)
 
 Pages:
 
 ```scala
 Weather : http://8.142.15.127:8888/
+//pets : http://8.142.15.127:8889/
 Jenkins: http://8.142.15.127:10240/
 Swagger: http://8.142.15.127:9527/swagger-ui/index.html
 Eureka:http://8.142.15.127:7001/ and http://8.142.15.127:7002/
