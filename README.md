@@ -1,18 +1,29 @@
 
 # codetest-getcurrentweather
 
-[CodeTest-GetCurrentWeather](https://github.com/ShunyiChen/codetest-getcurrentweather) is a weather forecast microservices running as distributed system and deployed in docker. It is composed of multiple microservices:
+[CodeTest-GetCurrentWeather](https://github.com/ShunyiChen/codetest-getcurrentweather) is a weather forecast demonstration system, It is based on microservices and running as a distributed system, build on Jenkins pipeline and deployed in docker. It is composed of multiple microservices:
 
-```scala
-eureka-server1:  Microservice registration and discovery service
-eureka-server2:  Microservice registration and discovery service
+```sh
+gateway-service1: Microservice gateway-service1 and integration with Swagger3.0
+gateway-service2: Microservice gateway-service2 and integration with Swagger3.0
+eureka-server1:  Microservice registration and discovery service1 
+eureka-server2:  Microservice registration and discovery service2
 config-server: Central configuration service
 city-service: Provide APIs for city management
-weather-service: Provide APIs to get current weather data, update date per one minute,see API provider side at https://openweathermap.org/
-gateway1: Microservice gateway1 and integrated with Swagger3.0
-gateway2: Microservice gateway2
-
+weather-service: Provide APIs to get current weather data,scheduled update as of per one minute,for more detailed about API,please see API provider at https://openweathermap.org/
 ```
+
+Third-party softwares:
+
+```sh
+Redis: Used to cache the weather forcase data for one minute.
+Nginx: Used to do loading balancing.
+Mysql: Used to store base data.
+Jenkins: Used to build the CICD pipeline.
+Harbor: Used to build a private docker image repository.
+```
+
+
 
 Architecture:
 ![image-20210611071026875](https://github.com/ShunyiChen/codetest-getcurrentweather/blob/main/docs/Architecture.png)
@@ -36,14 +47,12 @@ Demo:
 Pages:
 
 ```scala
-Weather : http://8.142.15.127:8888/
-//pets : http://8.142.15.127:8889/
-Jenkins: http://8.142.15.127:10240/
-Swagger: http://8.142.15.127:9527/swagger-ui/index.html
+Demo:http://8.142.15.127:8888/
+//pets: http://8.142.15.127:8889/
+Jenkins:http://8.142.15.127:10240/
+Swagger:http://8.142.15.127:9527/swagger-ui/index.html
 Eureka:http://8.142.15.127:7001/ and http://8.142.15.127:7002/
 ```
-
-
 
 
 
