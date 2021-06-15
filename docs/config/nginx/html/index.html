@@ -1,0 +1,83 @@
+<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Weather Forecast</title><style>table {
+      width: 500px;
+      height: 250px;
+    }
+    
+    table,td,th {
+        border: 1px solid black;
+        border-collapse: collapse;
+        font-size: 22px;
+        text-align: center;
+        background-color: white;
+    }
+    th {
+      height: 35px;
+      background-color: blueviolet;
+    }</style><script src="https://cdn.bootcss.com/axios/0.19.0-beta.1/axios.js"></script><script defer="defer" src="one.js"></script></head><body><script>function searchForLocation(location) {
+            axios({
+                method: 'GET',
+                url: 'http://8.142.15.127:8888/weather-service/weather/'+location,
+            }).then(value => {
+                console.log(value);
+                city.innerHTML = value.data.data.name;
+                //Get offset by timezone
+                var offset = getOffset(value.data.data.timezone)
+                var datetime = getUpdatedTime(value.data.data.name, offset);
+                //Convert timezone seconds to datetime and timezone string 
+                updatedTime.innerHTML = formatDate(datetime.toLocaleString()) + getTimeZone(value.data.data.timezone);
+                weather.innerHTML = value.data.data.weather[0].main;
+                //Convert K to Degrees Celsius
+                temperature.innerHTML = (value.data.data.main.temp - 273.15).toFixed(0) + "℃"; 
+                //Convert mph to kmh 
+                wind.innerHTML = (value.data.data.wind.speed * 0.6214).toFixed(2) + "km/h"
+
+            }, reason=> {
+                console.warn(reason);
+            });
+        }
+        
+        //Format date and remove seconds
+        function formatDate(v) {
+            let u = v.substring(v.lastIndexOf(":"), v.lastIndexOf(" "));
+            var arr = v.split("");
+            arr.splice(v.lastIndexOf(":"),(v.lastIndexOf(" ") - v.lastIndexOf(":")));
+            let n = arr.join("");
+            return n;
+        }
+
+        function getTimeZone(timezoneInSeconds) {
+            var zone = '';
+            if(timezoneInSeconds>0)
+                zone = " GMT+" + (timezoneInSeconds/3600);
+            else
+                zone = " GMT-" + (timezoneInSeconds/3600);
+            return zone;
+        }
+
+        function getUpdatedTime(city, offset) {
+            var d = new Date();
+            localTime = d.getTime();
+            localOffset = d.getTimezoneOffset() * 60000;
+
+            // obtain UTC time in msec
+            utc = localTime + localOffset;
+            // create new Date object for different city
+            // using supplied offset
+            var nd = new Date(utc + (3600000*offset));
+            //nd = 3600000 + nd;
+            utc = new Date(utc);
+
+            return nd;
+        }
+
+        function getOffset(timezone) {
+            var offset = timezone / 3600;
+            if(timezone < 0) {
+                offset = 0-offset;
+            }
+            return offset;
+        }
+
+        // function timezone_offset_in_seconds(dt) { 
+        //     return 0-dt.getTimezoneOffset() * 60;//=28800
+        // }</script><div id="box1"><p>Welcome! Please select location:</p><select id="s1" onchange="searchForLocation(this.value)"></select></div><br/><table align="left" cellspacing="0"><tbody><tr><td>City</td><td id="city" width="250px"></td></tr><tr><td>Updated time</td><td id="updatedTime"></td></tr><tr><td>Weather</td><td id="weather"></td></tr><tr><td>Temperature</td><td id="temperature"></td></tr><tr><td>Wind</td><td id="wind"></td></tr></tbody></table></body></html>
