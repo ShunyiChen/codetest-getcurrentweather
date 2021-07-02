@@ -50,7 +50,7 @@ chronyc> activity  查看当前时间服务器状态
 ################################ 设置两台机器Docker加速器加速下载
 vi /etc/docker/daemon.json
 {
-   "registry-mirrors": ["https://registry.docker-cn.com"]
+"registry-mirrors": ["https://registry.docker-cn.com"]
 }
 
 systemctl enable docker.service
@@ -96,6 +96,7 @@ kubeadm init \
 
 例如输出:
 [root@k8s-master ~]#  kubeadm init \
+
 >   --apiserver-advertise-address=192.168.3.131 \
 >   --image-repository registry.aliyuncs.com/google_containers \
 >   --kubernetes-version v1.19.4 \
@@ -806,7 +807,7 @@ EOF
 kubectl apply -f kube-flannel.yml
 
 
-################################ 换加速器
+################################ 换加速器(选做)
 vi /etc/docker/daemon.json
 {
    "registry-mirrors": ["https://gg3gwnry.mirror.aliyuncs.com"]
@@ -815,6 +816,9 @@ vi /etc/docker/daemon.json
 在Kubernates集群中部署一个Nginx
 kubectl create deployment weather-nginx --image=nginx
 kubectl expose deployment weather-nginx --port=80 --type=NodePort
+只有暴露了，才能在kubectl get service中可见
+
+
 在Kubernates集群中部署一个Tomcat
 kubectl create deployment weather-tomcat --image=tomcat
 kubectl expose deployment weather-tomcat --port=8080 --type=NodePort
@@ -835,12 +839,23 @@ kubectl logs calico-node-f846j -n kube-system
 
 
 
+
+安装Docker
+
+wget https://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo -O /etc/yum.repos.d/docker-ce.repo
+
+yum install docker-ce-19.03.13 -y
+
+
+
+
+
+
 Docker删除全部容器：
 docker rm $(docker ps -aq)
 
 Docker删除全部镜像：
 docker rmi -f $(docker images -q)
-
 
 
 
