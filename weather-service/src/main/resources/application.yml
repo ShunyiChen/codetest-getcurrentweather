@@ -2,13 +2,13 @@ server:
   port: 33473
 spring:
   redis:
-    host: 8.142.15.127
-    port: 6379
+    host: ${redis.host}
+    port: ${redis.port}  # 6379
   datasource:
     druid:
       db-type: com.alibaba.druid.pool.DruidDataSource
       driver-class-name: com.mysql.cj.jdbc.Driver
-      url: jdbc:mysql://8.142.15.127:3306/weather?useUnicode=true&characterEncoding=utf-8&useSSL=false
+      url: jdbc:mysql://${mysql.host}:${mysql.port}/weather?useUnicode=true&characterEncoding=utf-8&useSSL=false
       username: root
       password: cDe3@wsx
 
@@ -28,8 +28,8 @@ spring:
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://172.19.249.254:7001/eureka,http://172.19.249.254:7002/eureka
-#      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
+      defaultZone: http://${eureka1.host}:${eureka1.port}/eureka,http://${eureka2.host}:${eureka2.port}/eureka
+    #      defaultZone: http://eureka7001.com:7001/eureka,http://eureka7002.com:7002/eureka
     register-with-eureka: true
     fetch-registry: true
   instance:

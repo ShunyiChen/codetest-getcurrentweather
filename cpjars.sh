@@ -3,12 +3,14 @@ echo "Start copying "$1
 
 function pscp() {
    if [ $1 = "all" ];then
-      PSCP C:/Users/ESEHHUC/Downloads/codetest-getcurrentweather/*/target/*.jar root@8.142.15.127:/usr/shunyi/jarfiles
+      PSCP J://codetest-getcurrentweather/*/target/*.jar root@192.168.3.131:/usr/shunyi/k8s-deployment/jars
    else
-      PSCP C:/Users/ESEHHUC/Downloads/codetest-getcurrentweather/$1/target/*.jar root@8.142.15.127:/usr/shunyi/jarfiles
+      PSCP J://codetest-getcurrentweather/$1/target/*.jar root@192.168.3.131:/usr/shunyi/k8s-deployment/jars
    fi
 }
-
+##############################################
+#           sh cpjars.sh all                 #
+##############################################
 
 ##################### MAIN ###################
 
