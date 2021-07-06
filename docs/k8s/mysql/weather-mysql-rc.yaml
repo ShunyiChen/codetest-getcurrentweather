@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: weather-mysql
+spec:
+  replicas: 1
+  selector:
+    app: weather-mysql
+  template:
+    metadata:
+      labels: 
+        app: weather-mysql
+    spec:
+      containers:
+      - name: weather-mysql
+        image: mysql:8.0.19
+        ports:
+        - containerPort: 3306
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: "cDe3@wsx"
