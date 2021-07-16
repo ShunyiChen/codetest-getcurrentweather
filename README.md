@@ -126,7 +126,10 @@ docker exec -it weather-redis redis-cli
 ```sh
 docker pull jenkins/jenkins
 
-docker run -d -p 10240:8080 -p 10241:50000 -v /usr/shunyi/jenkins:/var/jenkins_home -v /etc/localtime:/etc/localtime --name weather-jenkins jenkins/jenkins
+docker run --name weather-jenkins -d -p 10240:8080 -p 10241:50000 -v /usr/shunyi/jenkins_home:/var/jenkins_home jenkins/jenkins
+
+docker exec -it weather-jenkins bash
+docker logs weather-jenkins
 
 参考https://www.cnblogs.com/fuzongle/p/12834080.html
 //访问控制台
